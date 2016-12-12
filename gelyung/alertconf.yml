@@ -23,20 +23,20 @@ contact_groups:
 # 联系人列表
 contact_members:
     dengliangju:
-        tel: 183
-        sms: 183
+        tel: 18311111111
+        sms: 18322222222
         email: dengliangju@example.com
     liujinliu:
-        tel: 182
-        sms: 182
+        tel: 18211111111
+        sms: 18222222222
         email: liujinliu@example.com
     wangyiyang:
-        tel: 188
-        sms: 188
+        tel: 18811111111
+        sms: 18822222222
         email: wangyiyang@example.com
     zhoubingzheng:
-        tel: 159
-        sms: 159
+        tel: 15911111111
+        sms: 15922222222
         email: zhoubingzheng@example.com
 
 
