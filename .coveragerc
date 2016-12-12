@@ -1,0 +1,7 @@
+# Test coverage configuration.
+
+[run]
+include = gelyung/*
+omit =
+    gelyung/tests*
+    tests/*

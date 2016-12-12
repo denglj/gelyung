@@ -1,0 +1,110 @@
+---
+# 告警只按分组发送，需要某人接收，只需将其添加到分组中即可
+#
+# 联系人分组
+contact_groups:
+    testting:
+        - dengliangju
+    demo:
+        - dengliangju
+        - zhoubingzheng
+        - wangyiyang
+    rds:
+        - chenwenquan
+        - zhangchengqiang
+        - gaoqiang3
+        - dengliangju
+    es:
+        - wangyiyang
+    beehive:
+        - liujinliu
+        - dengliangju
+
+# 联系人列表
+contact_members:
+    dengliangju:
+        tel: 18349178100
+        sms: 18349178100
+        email: dengliangju@le.com
+    liujinliu:
+        tel: 18201190271
+        sms: 18201190271
+        email: liujinliu@le.com
+    wangyiyang:
+        tel: 18810922933
+        sms: 18810922933
+        email: wangyiyang@le.com
+    zhoubingzheng:
+        tel: 15901422865
+        sms: 15901422865
+        email: zhoubingzheng@le.com
+
+
+################################################
+# 监控告警配置
+#
+# 在如下时间间隔(秒)内，相同告警不会发出
+INTERVAL: 15
+
+# 告警等级与对应告警方式：红色告警、橙色告警、黄色告警
+levels:
+    RED: ['email', 'sms', 'tel']
+    ORANGE: ['email', 'sms']
+    YELLOW: ['email']
+
+
+################################
+# 告警项 与 告警策略
+# ##############################
+#
+# 告警消息的标题就是 告警项名字+/+实例名字
+# e.g. host/cpu/utilization/MJQ-Mcluster-node30
+# 表示 MJQ-Mcluster-node30 这个宿主机的CPU利用率
+alert_items:
+    # 告警项名称
+    - host/cpu/utilization:
+        # 该告警项的指标类型
+        metrictype: host/cpu
+        # 从当前时间向后的取值周期，m为分钟，h为小时...
+        cycle: 5m
+        # 告警等级，可选值见alert_level
+        level: ORANGE
+        # 需要该指标类型下的哪些字段, 名称必须与ES里存储的一致
+        fields:
+            # 字段名字以及取值方法
+            # avg平均值，min最小值，max最大值
+            idle: avg
+        # 告警表达式，表达式中只能出现fields中配置过的变量 !!!
+        # 表达式计算结果为True时则发生告警
+        # 除了操作符两端，勿加额外空格
+        expression: "(1-idle) < 0.8"
+        # 告警项应该发送的联系人分组，在上方配置
+        contact_group: testting
+
+    # 第二个告警项配置
+    - host/memory/usable:
+        metrictype: host/memory
+        cycle: 1d
+        level: RED
+        fields:
+            MemFree: avg
+            Cached: avg
+            Buffers: avg
+        # 过去10m 周期内
+        # 应用程序可用内存小于10485760KB (10G) 则告警
+        expression: "(MemFree+Cached+Buffers) <= 10485760"
+        contact_group: testting
+
+
+###################################
+# 被监控的实例
+# 现在定义的是一个hostname对应一个计算节点实例
+# IP可能会被重复利用，所以没有用IP
+# 这里的数据应该从matrix的接口中根据metrictype获取相应实例列表，
+# 而不是在这里配置
+# demo 版先写这里
+#
+instances:
+    - MJQ-Mcluster-node30
+    - KLN-Mcluster-node29
+    - NT-Mcluster-node23
