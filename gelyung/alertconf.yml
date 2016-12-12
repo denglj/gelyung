@@ -23,28 +23,28 @@ contact_groups:
 # 联系人列表
 contact_members:
     dengliangju:
-        tel: 18349178100
-        sms: 18349178100
-        email: dengliangju@le.com
+        tel: 183
+        sms: 183
+        email: dengliangju@example.com
     liujinliu:
-        tel: 18201190271
-        sms: 18201190271
-        email: liujinliu@le.com
+        tel: 182
+        sms: 182
+        email: liujinliu@example.com
     wangyiyang:
-        tel: 18810922933
-        sms: 18810922933
-        email: wangyiyang@le.com
+        tel: 188
+        sms: 188
+        email: wangyiyang@example.com
     zhoubingzheng:
-        tel: 15901422865
-        sms: 15901422865
-        email: zhoubingzheng@le.com
+        tel: 159
+        sms: 159
+        email: zhoubingzheng@example.com
 
 
 ################################################
 # 监控告警配置
 #
 # 在如下时间间隔(秒)内，相同告警不会发出
-INTERVAL: 15
+INTERVAL: 300
 
 # 告警等级与对应告警方式：红色告警、橙色告警、黄色告警
 levels:
